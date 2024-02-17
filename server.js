@@ -25,7 +25,10 @@ app.post('/synthesize-speech', async (req, res) => {
       },
       body: JSON.stringify({
         text,
-        voice_settings: {},
+        model_id: "eleven_turbo_v2", // Add the correct model_id here
+        voice_settings: {
+          // Optional: Specify voice settings here if needed
+        },
       }),
     });
 
