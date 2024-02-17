@@ -7,9 +7,10 @@ app.use(express.json());
 // Dynamically import node-fetch
 app.post('/synthesize-speech', async (req, res) => {
   const { text } = req.body;
-  const API_KEY = 'your_api_key';
-  const VOICE_ID = 'your_voice_id';
+  const API_KEY = process.env.API_KEY
+  const VOICE_ID = 'IKne3meq5aSn9XLyUdCD';
   const API_URL = `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}/stream`;
+
 
   try {
     const fetch = (await import('node-fetch')).default;
