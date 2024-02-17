@@ -10,7 +10,7 @@ app.use(express.json());
 app.post('/synthesize-speech', async (req, res) => {
   const { text } = req.body;
   const API_KEY = process.env.API_KEY;
-  const VOICE_ID = 'IKne3meq5aSn9XLyUdCD'; // Ensure this is correctly set
+  const VOICE_ID = 'D38z5RcWu1voky8WS1ja'; // Ensure this is correctly set
   const API_URL = `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}/stream`;
 
   try {
