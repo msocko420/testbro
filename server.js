@@ -8,12 +8,13 @@ app.use(express.json());
 
 app.post('/synthesize-speech', async (req, res) => {
   const { text } = req.body;
+  // Ensure API_KEY is set in your environment variables
   const API_KEY = process.env.API_KEY;
-  const VOICE_ID = process.env.VOICE_ID;
+  const VOICE_ID = process.env.VOICE_ID; // Ensure this is correctly set
   const API_URL = `https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}/stream`;
 
   const payload = {
-    model_id: "eleven_monolingual_v1",
+    model_id: "eleven_turbo_v2", // Updated model_id based on the working format
     text: text,
   };
 
@@ -22,8 +23,8 @@ app.post('/synthesize-speech', async (req, res) => {
   const options = {
     method: 'POST',
     headers: {
+      'xi-api-key': API_KEY, // Updated header for API key
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${API_KEY}`,
     },
     body: JSON.stringify(payload),
   };
@@ -38,6 +39,7 @@ app.post('/synthesize-speech', async (req, res) => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
+    // Adjust response handling if necessary based on your application's needs
     res.setHeader('Content-Type', 'audio/mpeg');
     response.body.pipe(res);
   } catch (error) {
@@ -45,7 +47,6 @@ app.post('/synthesize-speech', async (req, res) => {
     res.status(500).send("Error synthesizing speech.");
   }
 });
-
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
